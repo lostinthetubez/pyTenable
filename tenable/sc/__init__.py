@@ -83,6 +83,7 @@ from .scan_zones import ScanZoneAPI
 from .status import StatusAPI
 from .system import SystemAPI
 from .users import UserAPI
+from .tickets import TicketAPI
 import warnings, logging, semver
 
 
@@ -434,6 +435,10 @@ class TenableSC(APISession):
     @property
     def system(self):
         return SystemAPI(self)
+
+    @property
+    def tickets(self):
+        return TicketAPI(self)
 
     @property
     def users(self):
