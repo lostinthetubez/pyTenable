@@ -142,11 +142,11 @@ class TicketAPI(SCEndpoint):
 
     def list(self, fields=None):
         '''
-        Outputs a list of tickets.
+        Outputs a dictionary of usable and manageable tickets, within which is a list of tickets.
         :sc-api:`ticket: list <Ticket.html#ticket_GET>`
         Args:
             fields (list, optional):
-                A list of attributes to return for each ticket.
+                A list of attributes to return for each ticket, e.g. ["name","description"]. If not specified, only a list of ticket IDs will return
         Returns:
             :obj:`list`:
                 A list of ticket resources.
