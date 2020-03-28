@@ -39,12 +39,12 @@ class TicketAPI(SCEndpoint):
         if 'classification' in kw:
             # Verify that classification is one of the correct possible values.
             kw['classification'] = self._check(
-                'classification', kw['classification'], str, choices=['Information', 'Configuration', 'Patch', 'Disable', 'Firewall', 'Schedule', 'IDS', 'Accept Risk', 'Recast Risk', 'Re-scan Request', 'False Positive', 'System Probe', 'External Probe', 'Investigation Needed', 'Compromised System', 'Virus Incident', 'Bad Credentials', 'Unauthorized Software', 'Unauthorized System', 'Unauthorized User', 'Other'])
+                'classification', kw['classification'], str, choices=['information', 'configuration', 'patch', 'disable', 'firewall', 'schedule', 'ids', 'accept risk', 'recast risk', 're-scan request', 'false positive', 'system probe', 'external probe', 'investigation needed', 'compromised system', 'virus incident', 'bad credentials', 'unauthorized software', 'unauthorized system', 'unauthorized user', 'other'])
 
         if 'status' in kw:
             # Verify that status is one of the correct possible values
             kw['status'] = self._check('status', kw['status'], str,
-                choices=['Assigned', 'Resolved', 'More Information', 'Not Applicable', 'Duplicate', 'Closed'])
+                choices=['assigned', 'resolved', 'more information', 'not applicable', 'duplicate', 'closed'])
 
         return kw
 
@@ -73,7 +73,7 @@ class TicketAPI(SCEndpoint):
             :obj:`dict`:
                 The newly created ticket.
         Examples:
-            >>> ticket = sc.tickets.create('INC123456', 1, status='Assigned', 'Classification='Information', description='this is a sample ticket', notes='sample notes')
+            >>> ticket = sc.tickets.create('INC123456', 1, status='assigned', classification='information', description='This is a sample ticket', notes='Sample notes')
         '''
         kw['name'] = name
         kw['assignee'] = assignee
@@ -148,8 +148,8 @@ class TicketAPI(SCEndpoint):
             fields (list, optional):
                 A list of attributes to return for each ticket, e.g. ["name","description"]. If not specified, only a list of ticket IDs will return
         Returns:
-            :obj:`list`:
-                A list of ticket resources.
+            :obj:`dict`:
+                A dictionary with two lists of ticket resources.
         Examples:
             >>> for ticket in sc.tickets.list():
             ...     pprint(ticket)
