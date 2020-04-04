@@ -21,17 +21,14 @@ class TicketAPI(SCEndpoint):
         Handles parsing the keywords and returns a ticket document
         '''
 
-        if 'assigned_to' in kw:
-            # Validate as int and pass to assignee
-            kw['assignee'] = self._check('assigned_to', kw['assigned_to'], int)
-            del(kw['assigned_to'])
+        # Validate as int and pass to assignee  
+        if 'assignee' in kw:
+            kw['assignee'] = self._check('assignee', kw['assignee'], dict)
 
         # all of the following keys are string values and do not require any
         # case conversion.  We will simply iterate through them and verify that
         # they are in-fact strings.
-        keys = [
-            'name', 'description', 'notes'
-        ]
+        keys = ['name', 'description', 'notes']
         for k in keys:
             if k in kw:
                 self._check(k, kw[k], str)
@@ -56,7 +53,7 @@ class TicketAPI(SCEndpoint):
             name (str):
                 The name for the ticket
             assignee (int):
-                The ID for the user the ticket is being assigned to
+                A dictionary containing one key (id) for the user the ticket is being assigned to
             status (str, optional):
                 Optional status of the ticket: assigned, resolved, etc.
             classification (str, optional):
@@ -73,17 +70,16 @@ class TicketAPI(SCEndpoint):
             :obj:`dict`:
                 The newly created ticket.
         Examples:
-            >>> ticket = sc.tickets.create('INC123456', 1, status='assigned', classification='information', description='This is a sample ticket', notes='Sample notes')
+            >>> ticket = sc.tickets.create('INC123456', {'id':1}, status='assigned', classification='information', description='This is a sample ticket', notes='Sample notes')
         '''
         kw['name'] = name
         kw['assignee'] = assignee
-        kw['status'] = status
-        kw['classification'] = classification
-        kw['description'] = description
-        kw['notes'] = notes
-        kw['queries'] = queries
-        kw['query'] = query
-#        kw.get('auth_type', 'tns')
+        #kw['status'] = status
+        #kw['classification'] = classification
+        #kw['description'] = description
+        #kw['notes'] = notes
+        #kw['queries'] = queries
+        #kw['query'] = query
         payload = self._constructor(**kw)
         return self._api.post('ticket', json=payload).json()['response']
 
