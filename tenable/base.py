@@ -279,7 +279,7 @@ class APIEndpoint(object):
                 )
 
 
-        # if we made it this fire without an exception being raised, then assume
+        # if we made it this far without an exception being raised, then assume
         # everything is good to go and return the object passed to us initially.
         return obj
 
