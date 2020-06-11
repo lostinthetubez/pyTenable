@@ -22,6 +22,7 @@ Methods available on ``sc.audit_files``:
     .. automethod:: template_list
 '''
 from .base import SCEndpoint
+from io import BytesIO
 from os.path import basename
 
 class AuditFileAPI(SCEndpoint):
@@ -433,5 +434,5 @@ class AuditFileAPI(SCEndpoint):
             params['fields'] = ','.join([self._check('field', f, str)
                 for f in fields])
 
-        return self._api.get('auditFileTemplate/{}'.format(
-            self._check('id', id, int)), params=params).json()['response']
+        return self._api.get('auditFileTemplate',
+            params=params).json()['response']
